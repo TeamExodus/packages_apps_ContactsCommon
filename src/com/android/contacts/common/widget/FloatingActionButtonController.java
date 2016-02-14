@@ -83,7 +83,7 @@ public class FloatingActionButtonController {
         mFloatingActionButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
-    public boolean isVisible() {
+    private boolean isVisible() {
         return mFloatingActionButtonContainer.getVisibility() == View.VISIBLE;
     }
 
@@ -172,6 +172,12 @@ public class FloatingActionButtonController {
     }
 
     public void scaleIn(int delayMs, AnimationCallback callback) {
+        if (isVisible()) {
+            mFloatingActionButtonContainer.setScaleX(1);
+            mFloatingActionButtonContainer.setScaleY(1);
+            return;
+        }
+
         setVisible(true);
         AnimUtils.scaleIn(mFloatingActionButtonContainer, FAB_SCALE_IN_DURATION, delayMs, callback);
         AnimUtils.fadeIn(mFloatingActionButton, FAB_SCALE_IN_DURATION,
